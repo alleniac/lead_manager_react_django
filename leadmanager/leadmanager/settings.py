@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'leads',
     'rest_framework',
     'frontend',
+    'knox',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +53,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication', )
+}
 
 ROOT_URLCONF = 'leadmanager.urls'
 
