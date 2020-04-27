@@ -16,6 +16,9 @@ export class Alerts extends Component {
       if (error.msg.message) {
         alert.error(`Message: ${error.msg.message.join()}`);
       }
+      if (error.msg.non_field_errors) {
+        alert.error(error.msg.non_field_errors.join());
+      }
     }
 
     if (message !== prevProps.message) {
@@ -37,7 +40,7 @@ Alerts.propTypes = {
   error: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   error: state.errors,
   message: state.messages,
 });
