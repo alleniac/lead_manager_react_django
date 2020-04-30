@@ -7,6 +7,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
 } from './types';
 
 // Check the token and load the user
@@ -89,4 +91,31 @@ export const tokenConfig = (getState) => {
   }
 
   return config;
+};
+
+// User register
+export const register = ({ username, password, email }) => (dispatch) => {
+  // Headers
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  // Body
+  const body = JSON.stringify({ username, password, email });
+
+  // Login POST request
+  axios
+    .post('api/auth/register', body, config)
+    .then((res) => {
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+      dispatch({ type: REGISTER_FAIL });
+    });
 };
